@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="calculator max-w-md mx-auto bg-white rounded-3xl shadow-2xl p-6 m-4">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-xl font-bold text-gray-800">Calculator</h1>
+      <button id="toggle-mode" class="px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded-full text-xs font-medium transition-colors">
+        Scientific
+      </button>
+    </div>
+
+    <!-- History -->
+    <div id="history" class="mb-4 bg-gray-50 rounded-lg p-3 max-h-20 overflow-y-auto hidden"></div>
+
+    <!-- Display -->
+    <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 mb-6 shadow-inner">
+      <div class="text-right">
+        <div id="memory-display" class="text-xs text-gray-400 mb-1 hidden"></div>
+        <div id="display" class="text-3xl sm:text-4xl font-light text-white font-mono break-all">0</div>
+      </div>
+    </div>
+
+    <!-- Scientific Mode Functions -->
+    <div id="scientific-buttons" class="grid grid-cols-5 gap-2 mb-4 hidden">
+      <button class="btn btn-memory" onclick="memoryOperation('MC')">MC</button>
+      <button class="btn btn-memory" onclick="memoryOperation('MR')">MR</button>
+      <button class="btn btn-memory" onclick="memoryOperation('M+')">M+</button>
+      <button class="btn btn-memory" onclick="memoryOperation('M-')">M-</button>
+      <button class="btn btn-memory" onclick="memoryOperation('MS')">MS</button>
+
+      <button class="btn btn-scientific" onclick="scientificOperation('sin')">sin</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('cos')">cos</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('tan')">tan</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('log')">log</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('ln')">ln</button>
+
+      <button class="btn btn-scientific" onclick="scientificOperation('sqrt')">√</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('x²')">x²</button>
+      <button class="btn btn-scientific" onclick="performOperation('^')">x^y</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('1/x')">1/x</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('±')">±</button>
+
+      <button class="btn btn-scientific" onclick="scientificOperation('π')">π</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('e')">e</button>
+      <button class="btn btn-scientific" onclick="inputParentheses()">()</button>
+      <button class="btn btn-scientific" onclick="clearHistory()">Hist</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('±')">+/-</button>
+    </div>
+
+    <!-- Main Calculator Grid -->
+    <div class="grid grid-cols-4 gap-3">
+      <!-- Row 1 -->
+      <button class="btn btn-clear" onclick="clear()">AC</button>
+      <button class="btn btn-clear" onclick="clearEntry()">CE</button>
+      <button class="btn btn-operation" onclick="performOperation('÷')">÷</button>
+      <button class="btn btn-operation" onclick="scientificOperation('±')">+/-</button>
+
+      <!-- Row 2 -->
+      <button class="btn btn-default" onclick="inputNumber('7')">7</button>
+      <button class="btn btn-default" onclick="inputNumber('8')">8</button>
+      <button class="btn btn-default" onclick="inputNumber('9')">9</button>
+      <button class="btn btn-operation" onclick="performOperation('×')">×</button>
+
+      <!-- Row 3 -->
+      <button class="btn btn-default" onclick="inputNumber('4')">4</button>
+      <button class="btn btn-default" onclick="inputNumber('5')">5</button>
+      <button class="btn btn-default" onclick="inputNumber('6')">6</button>
+      <button class="btn btn-operation" onclick="performOperation('-')">-</button>
+
+      <!-- Row 4 -->
+      <button class="btn btn-default" onclick="inputNumber('1')">1</button>
+      <button class="btn btn-default" onclick="inputNumber('2')">2</button>
+      <button class="btn btn-default" onclick="inputNumber('3')">3</button>
+      <button class="btn btn-operation" onclick="performOperation('+')">+</button>
+
+      <!-- Row 5 -->
+      <button class="btn btn-default col-span-2" onclick="inputNumber('0')">0</button>
+      <button class="btn btn-default" onclick="inputDecimal()">.</button>
+      <button class="btn btn-equals" onclick="calculate()">=</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-4 text-xs text-gray-500">
+      Tap "Scientific" for advanced functions
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
