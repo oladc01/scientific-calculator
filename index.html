@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <style>
+  /* Tailwind-like utility classes */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #f3f4f6;
+  margin: 0;
+  padding: 0;
+}
+
+.max-w-md {
+  max-width: 28rem;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+
+.rounded-3xl {
+  border-radius: 1.5rem;
+}
+
+.shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.m-4 {
+  margin: 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-gray-800 {
+  color: #1f2937;
+}
+
+.px-3 {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.bg-gray-200 {
+  background-color: #e5e7eb;
+}
+
+.hover\:bg-gray-300:hover {
+  background-color: #d1d5db;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.transition-colors {
+  transition-property: color, background-color, border-color;
+  transition-duration: 150ms;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.p-3 {
+  padding: 0.75rem;
+}
+
+.max-h-20 {
+  max-height: 5rem;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
+}
+
+.text-gray-600 {
+  color: #4b5563;
+}
+
+.font-mono {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.bg-gradient-to-br {
+  background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
+}
+
+.from-gray-900 {
+  --tw-gradient-from: #111827;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(17, 24, 39, 0));
+}
+
+.to-gray-800 {
+  --tw-gradient-to: #1f2937;
+}
+
+.p-6 {
+  padding: 1.5rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.shadow-inner {
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-gray-400 {
+  color: #9ca3af;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+}
+
+.sm\:text-4xl {
+  @media (min-width: 640px) {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.break-all {
+  word-break: break-all;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.gap-2 {
+  gap: 0.5rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}
+
+/* Button styles */
+.btn {
+  height: 3rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 150ms;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+@media (min-width: 640px) {
+  .btn {
+    height: 3.5rem;
+    font-size: 1rem;
+  }
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.btn:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-default {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.btn-default:hover {
+  background-color: #e5e7eb;
+}
+
+.btn-operation {
+  background-image: linear-gradient(to bottom right, #3b82f6, #2563eb);
+  color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-operation:hover {
+  background-image: linear-gradient(to bottom right, #2563eb, #1e40af);
+}
+
+.btn-equals {
+  background-image: linear-gradient(to bottom right, #10b981, #059669);
+  color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-equals:hover {
+  background-image: linear-gradient(to bottom right, #059669, #047857);
+}
+
+.btn-clear {
+  background-image: linear-gradient(to bottom right, #ef4444, #dc2626);
+  color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-clear:hover {
+  background-image: linear-gradient(to bottom right, #dc2626, #b91c1c);
+}
+
+.btn-scientific {
+  background-image: linear-gradient(to bottom right, #8b5cf6, #7c3aed);
+  color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  font-size: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .btn-scientific {
+    font-size: 0.875rem;
+  }
+}
+
+.btn-scientific:hover {
+  background-image: linear-gradient(to bottom right, #7c3aed, #6d28d9);
+}
+
+.btn-memory {
+  background-image: linear-gradient(to bottom right, #f97316, #ea580c);
+  color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  font-size: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .btn-memory {
+    font-size: 0.875rem;
+  }
+}
+
+.btn-memory:hover {
+  background-image: linear-gradient(to bottom right, #ea580c, #c2410c);
+}
+
+.hidden {
+  display: none;
+}
+  </style>
+</head>
+<body>
+  <div class="calculator max-w-md mx-auto bg-white rounded-3xl shadow-2xl p-6 m-4">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-xl font-bold text-gray-800">Calculator</h1>
+      <button id="toggle-mode" class="px-3 py-1 bg-gray-200 hover:bg-gray-300 rounded-full text-xs font-medium transition-colors">
+        Scientific
+      </button>
+    </div>
+
+    <!-- History -->
+    <div id="history" class="mb-4 bg-gray-50 rounded-lg p-3 max-h-20 overflow-y-auto hidden"></div>
+
+    <!-- Display -->
+    <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 mb-6 shadow-inner">
+      <div class="text-right">
+        <div id="memory-display" class="text-xs text-gray-400 mb-1 hidden"></div>
+        <div id="display" class="text-3xl sm:text-4xl font-light text-white font-mono break-all">0</div>
+      </div>
+    </div>
+
+    <!-- Scientific Mode Functions -->
+    <div id="scientific-buttons" class="grid grid-cols-5 gap-2 mb-4 hidden">
+      <button class="btn btn-memory" onclick="memoryOperation('MC')">MC</button>
+      <button class="btn btn-memory" onclick="memoryOperation('MR')">MR</button>
+      <button class="btn btn-memory" onclick="memoryOperation('M+')">M+</button>
+      <button class="btn btn-memory" onclick="memoryOperation('M-')">M-</button>
+      <button class="btn btn-memory" onclick="memoryOperation('MS')">MS</button>
+
+      <button class="btn btn-scientific" onclick="scientificOperation('sin')">sin</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('cos')">cos</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('tan')">tan</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('log')">log</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('ln')">ln</button>
+
+      <button class="btn btn-scientific" onclick="scientificOperation('sqrt')">√</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('x²')">x²</button>
+      <button class="btn btn-scientific" onclick="performOperation('^')">x^y</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('1/x')">1/x</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('±')">±</button>
+
+      <button class="btn btn-scientific" onclick="scientificOperation('π')">π</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('e')">e</button>
+      <button class="btn btn-scientific" onclick="inputParentheses()">()</button>
+      <button class="btn btn-scientific" onclick="clearHistory()">Hist</button>
+      <button class="btn btn-scientific" onclick="scientificOperation('±')">+/-</button>
+    </div>
+
+    <!-- Main Calculator Grid -->
+    <div class="grid grid-cols-4 gap-3">
+      <!-- Row 1 -->
+      <button class="btn btn-clear" onclick="clear()">AC</button>
+      <button class="btn btn-clear" onclick="clearEntry()">CE</button>
+      <button class="btn btn-operation" onclick="performOperation('÷')">÷</button>
+      <button class="btn btn-operation" onclick="scientificOperation('±')">+/-</button>
+
+      <!-- Row 2 -->
+      <button class="btn btn-default" onclick="inputNumber('7')">7</button>
+      <button class="btn btn-default" onclick="inputNumber('8')">8</button>
+      <button class="btn btn-default" onclick="inputNumber('9')">9</button>
+      <button class="btn btn-operation" onclick="performOperation('×')">×</button>
+
+      <!-- Row 3 -->
+      <button class="btn btn-default" onclick="inputNumber('4')">4</button>
+      <button class="btn btn-default" onclick="inputNumber('5')">5</button>
+      <button class="btn btn-default" onclick="inputNumber('6')">6</button>
+      <button class="btn btn-operation" onclick="performOperation('-')">-</button>
+
+      <!-- Row 4 -->
+      <button class="btn btn-default" onclick="inputNumber('1')">1</button>
+      <button class="btn btn-default" onclick="inputNumber('2')">2</button>
+      <button class="btn btn-default" onclick="inputNumber('3')">3</button>
+      <button class="btn btn-operation" onclick="performOperation('+')">+</button>
+
+      <!-- Row 5 -->
+      <button class="btn btn-default col-span-2" onclick="inputNumber('0')">0</button>
+      <button class="btn btn-default" onclick="inputDecimal()">.</button>
+      <button class="btn btn-equals" onclick="calculate()">=</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-4 text-xs text-gray-500">
+      Tap "Scientific" for advanced functions
+    </div>
+  </div>
+  <script>
+      // State variables
+let display = '0';
+let previousValue = null;
+let operation = null;
+let waitingForNewValue = false;
+let isScientificMode = false;
+let memory = 0;
+let history = [];
+
+// DOM elements
+const displayElement = document.getElementById('display');
+const memoryDisplayElement = document.getElementById('memory-display');
+const historyElement = document.getElementById('history');
+const scientificButtons = document.getElementById('scientific-buttons');
+const toggleModeButton = document.getElementById('toggle-mode');
+
+// Update display
+function updateDisplay() {
+  displayElement.textContent = display;
+  memoryDisplayElement.textContent = `M: ${memory}`;
+  memoryDisplayElement.classList.toggle('hidden', memory === 0);
+  historyElement.innerHTML = history.slice(-2).map(entry => `<div class="text-xs text-gray-600 font-mono">${entry}</div>`).join('');
+  historyElement.classList.toggle('hidden', history.length === 0);
+}
+
+// Input number
+function inputNumber(num) {
+  if (waitingForNewValue) {
+    display = String(num);
+    waitingForNewValue = false;
+  } else {
+    display = display === '0' ? String(num) : display + num;
+  }
+  updateDisplay();
+}
+
+// Input decimal
+function inputDecimal() {
+  if (waitingForNewValue) {
+    display = '0.';
+    waitingForNewValue = false;
+  } else if (!display.includes('.')) {
+    display += '.';
+  }
+  updateDisplay();
+}
+
+// Clear all
+function clear() {
+  display = '0';
+  previousValue = null;
+  operation = null;
+  waitingForNewValue = false;
+  updateDisplay();
+}
+
+// Clear entry
+function clearEntry() {
+  display = '0';
+  updateDisplay();
+}
+
+// Perform operation
+function performOperation(nextOperation) {
+  const inputValue = parseFloat(display);
+
+  if (previousValue === null) {
+    previousValue = inputValue;
+  } else if (operation) {
+    const currentValue = previousValue || 0;
+    let result;
+
+    switch (operation) {
+      case '+':
+        result = currentValue + inputValue;
+        break;
+      case '-':
+        result = currentValue - inputValue;
+        break;
+      case '×':
+        result = currentValue * inputValue;
+        break;
+      case '÷':
+        result = inputValue !== 0 ? currentValue / inputValue : 0;
+        break;
+      case '^':
+        result = Math.pow(currentValue, inputValue);
+        break;
+      default:
+        result = inputValue;
+    }
+
+    const historyEntry = `${currentValue} ${operation} ${inputValue} = ${result}`;
+    history = [...history.slice(-4), historyEntry];
+    display = String(result);
+    previousValue = result;
+  }
+
+  waitingForNewValue = true;
+  operation = nextOperation;
+  updateDisplay();
+}
+
+// Calculate result
+function calculate() {
+  performOperation(null);
+  operation = null;
+  previousValue = null;
+  waitingForNewValue = true;
+  updateDisplay();
+}
+
+// Scientific operations
+function scientificOperation(func) {
+  const inputValue = parseFloat(display);
+  let result;
+
+  switch (func) {
+    case 'sin':
+      result = Math.sin(inputValue * Math.PI / 180);
+      break;
+    case 'cos':
+      result = Math.cos(inputValue * Math.PI / 180);
+      break;
+    case 'tan':
+      result = Math.tan(inputValue * Math.PI / 180);
+      break;
+    case 'log':
+      result = Math.log10(inputValue);
+      break;
+    case 'ln':
+      result = Math.log(inputValue);
+      break;
+    case 'sqrt':
+      result = Math.sqrt(inputValue);
+      break;
+    case '1/x':
+      result = inputValue !== 0 ? 1 / inputValue : 0;
+      break;
+    case 'x²':
+      result = inputValue * inputValue;
+      break;
+    case '±':
+      result = -inputValue;
+      break;
+    case 'π':
+      result = Math.PI;
+      break;
+    case 'e':
+      result = Math.E;
+      break;
+    default:
+      result = inputValue;
+  }
+
+  const historyEntry = `${func}(${inputValue}) = ${result}`;
+  history = [...history.slice(-4), historyEntry];
+  display = String(result);
+  waitingForNewValue = true;
+  updateDisplay();
+}
+
+// Memory operations
+function memoryOperation(op) {
+  const inputValue = parseFloat(display);
+  switch (op) {
+    case 'MC':
+      memory = 0;
+      break;
+    case 'MR':
+      display = String(memory);
+      waitingForNewValue = true;
+      break;
+    case 'M+':
+      memory += inputValue;
+      break;
+    case 'M-':
+      memory -= inputValue;
+      break;
+    case 'MS':
+      memory = inputValue;
+      break;
+  }
+  updateDisplay();
+}
+
+// Clear history
+function clearHistory() {
+  history = [];
+  updateDisplay();
+}
+
+// Toggle scientific mode
+toggleModeButton.addEventListener('click', () => {
+  isScientificMode = !isScientificMode;
+  toggleModeButton.textContent = isScientificMode ? 'Basic' : 'Scientific';
+  scientificButtons.classList.toggle('hidden', !isScientificMode);
+});
+
+// Placeholder for parentheses (not fully implemented)
+function inputParentheses() {
+  // Implement parentheses logic if needed
+  console.log('Parentheses functionality not implemented');
+}
+
+// Initialize display
+updateDisplay();
+      
+  </script>
+</body>
+</html>
